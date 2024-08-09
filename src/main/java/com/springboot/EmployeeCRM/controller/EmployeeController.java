@@ -4,9 +4,7 @@ import com.springboot.EmployeeCRM.dao.EmployeeDAO;
 import com.springboot.EmployeeCRM.entity.Employee;
 import com.springboot.EmployeeCRM.service.interfaces.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +22,22 @@ public class EmployeeController {
     @GetMapping("/employees")
     public List<Employee> findAll(){
         return employeeService.findAll();
+    }
+
+    @GetMapping("/employees/{employeeId}")
+    public Employee getById(@PathVariable("employeeId")int id){
+        return employeeService.findById(id);
+    }
+
+    @PutMapping("/employees")
+    public Employee updateEmployee(@RequestBody Employee employee){
+        return employeeService.save(employee);
+    }
+
+    @DeleteMapping("/employees/{employeeId}")
+    public void deleteEmployee(@PathVariable("employeeId")int id)
+    {
+        employeeService.delete(id);
     }
 
 }
